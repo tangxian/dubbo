@@ -1,17 +1,20 @@
 package com.tangxian.dubbo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.tangxian.dubbo.service.IBookService;
+import com.tangxian.dubbo.service.IDevKeyService;
 
+/**
+ * @author TANGXIAN
+ * controller测试
+ */
 @RestController
 public class DubboController {
 
 	@Reference
-	IBookService bookService;
+	IDevKeyService bookService;
 	@RequestMapping("test")
 	public String testDubbo(){
 		return bookService.sayHello();
