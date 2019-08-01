@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 开发者key表
  * </p>
  *
- * @author TANGXIAN
+ * @author   TANGXIAN
  * @since 2019-07-11
  */
 public class DevKey implements Serializable {
