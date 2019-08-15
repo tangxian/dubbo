@@ -8,9 +8,10 @@ import com.tangxian.dubbo.service.IDevKeyService;
 
 /**
  * @author TANGXIAN
- * controller测试
+ * controller测试dubbo
  */
 @RestController
+@RequestMapping("dubbotest")
 public class DubboController {
 
 	@Reference
