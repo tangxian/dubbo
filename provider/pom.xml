@@ -31,7 +31,7 @@
 	</dependency>
     <dependency>
       <groupId>com.tangxian</groupId>
-      <artifactId>consumer</artifactId>
+      <artifactId>pojo</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

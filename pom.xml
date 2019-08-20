@@ -76,7 +76,7 @@
   </dependencies>
   <modules>
     <module>provider</module>
+    <module>pojo</module>
     <module>consumer</module>
-    <module>api</module>
   </modules>
 </project>

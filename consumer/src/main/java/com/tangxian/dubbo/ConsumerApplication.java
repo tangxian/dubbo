@@ -9,10 +9,10 @@ import com.alibaba.dubbo.spring.boot.annotation.EnableDubboConfiguration;
 
 @SpringBootApplication
 @EnableDubboConfiguration
-public class ApiApplication {
-	private final static Logger logger = LoggerFactory.getLogger(ApiApplication.class);
+public class ConsumerApplication {
+	private final static Logger logger = LoggerFactory.getLogger(ConsumerApplication.class);
 	public static void main(String[] args) {
-		SpringApplication.run(ApiApplication.class, args);
-		logger.info("ApiApplication is success Dubbo Api启动成功!");
+		SpringApplication.run(ConsumerApplication.class, args);
+		logger.info("ConsumerApplication is success Dubbo Api启动成功!");
 	}
 }
