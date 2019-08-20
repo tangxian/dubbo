@@ -8,8 +8,19 @@
   <groupId>com.tangxian</groupId>
   <artifactId>provider</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <build/>
+  <packaging>jar</packaging>
+  <build>
+  	<plugins>
+  		<!-- 打包jar -->
+  		<plugin>
+		<groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-maven-plugin</artifactId>
+	      <configuration>
+	          <classifier>exec</classifier>
+	      </configuration>
+	  </plugin>
+  	</plugins>
+  </build>
   <properties>
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
