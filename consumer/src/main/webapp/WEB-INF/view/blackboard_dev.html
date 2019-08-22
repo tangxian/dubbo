@@ -1,0 +1,201 @@
+@layout("/common/_container.html"){
+<!-- orris -->
+<link href="${ctxPath}/static/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+<div class="container-fluid" style="padding: 0 !important;">
+	<div class="row">
+		<div class="col-sm-3" id="income" hidden>
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<span class="label label-info pull-right">本月</span>
+					<h5>收入</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins" id="orderAmount">0</h1>
+					<div class="stat-percent font-bold text-success">
+						98% <i class="fa fa-bolt"></i>
+					</div>
+					<small>收入统计</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3" id="incomeOrderCount" hidden>
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<span class="label label-info pull-right">本月</span>
+					<h5>订单</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins" id="orderCount">0</h1>
+					<div class="stat-percent font-bold text-info">
+						20% <i class="fa fa-level-up"></i>
+					</div>
+					<small>订单数量</small>
+				</div>
+			</div>
+		</div>
+        <div class="col-sm-3" id="CustomOrder" hidden>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">本月</span>
+                    <h5>消费</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id="CustomOrderAomount">0</h1>
+                    <div class="stat-percent font-bold text-success">
+                        98% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>消费统计</small>
+                </div>
+            </div>
+        </div>
+		<div class="col-sm-3" id="CustomOrdercount" hidden>
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<span class="label label-primary pull-right">全年</span>
+					<h5>消费订单</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins" id="devCount">0</h1>
+					<div class="stat-percent font-bold text-navy">
+						44% <i class="fa fa-level-up"></i>
+					</div>
+					<small>订单数量</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3" id="resourceCount" hidden>
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<span class="label label-primary pull-right">全年</span>
+					<h5>资源</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins" id="resCount">0</h1>
+					<div class="stat-percent font-bold text-navy">
+						38% <i class="fa fa-level-up"></i>
+					</div>
+					<small>资源</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 分割线 分成订单-->
+	<div class="row" id="DivideOrder" hidden>
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分成订单数</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="order_month" onclick="Blackboard_dev.selectDeveloperAmountDivideByDay()" class="btn btn-xs btn-white">月</button>
+                            <button type="button" id="order_year" onclick="Blackboard_dev.selectDeveloperAmountDivideByMonth()" class="btn btn-xs btn-white active">年</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="ibox-content">
+                                <div id="divideamount"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="stat-list">
+                                <li>
+                                    <h2 class="no-margins" id="orderAllCount">0</h2>
+                                    <small>订单总数</small>
+                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins" id="orderMonthCount">0</h2>
+                                    <small>最近一个月订单</small>
+                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 60%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins" id="orderMonthAmount">0</h2>
+                                    <small>最近一个月金额</small>
+                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+							</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--分割线 消费订单-->
+    <div class="row" id="ConsumeOrder"  hidden>
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>消费订单数</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="customorder_month" onclick="Blackboard_dev.selectDeveloperAmountConsumeByDay()" class="btn btn-xs btn-white">月</button>
+                            <button type="button" id="customorder_year" onclick="Blackboard_dev.selectDeveloperAmountConsumeByMonth()" class="btn btn-xs btn-white active">年</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="ibox-content">
+                                <div id="consume"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="stat-list">
+                                <li>
+                                    <h2 class="no-margins" id="customorderAllCount">0</h2>
+                                    <small>消费订单总数</small>
+                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins" id="customorderMonthCount">0</h2>
+                                    <small>最近一个月消费订单</small>
+                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 60%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins" id="customorderMonthAmount">0</h2>
+                                    <small>最近一个月消费额</small>
+                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Morris -->
+<script src="${ctxPath}/static/js/plugins/morris/raphael-2.1.0.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/morris/morris.js"></script>
+<script src="${ctxPath}/static/modular/blackboard/blackboard_dev.js"></script>
+<script src="${ctxPath}/static/js/common/DateUtils.js"></script>
+@}

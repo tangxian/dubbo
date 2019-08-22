@@ -1,0 +1,91 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">订单号</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.ordernum!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">订单时间</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.time!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">资源名称</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.resourcename!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">应用名称</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.appname!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">用户ID</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.devuuid!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">平台</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.platform!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">金额</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.amount!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">支付方式</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.paytype!}</label>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group col-sm-2 text-right">
+                        <label class="control-label">流水号</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="control-label">${item.serialnumber!}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row btn-group-m-t">
+            <div class="col-sm-3" align="right">
+                <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ConsumeOrderInfoDlg.close()"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="${ctxPath}/static/modular/statistic/statistic/consume_order_info.js"></script>
+@}

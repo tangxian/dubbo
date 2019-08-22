@@ -1,0 +1,49 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+	<div class="ibox-title">
+       <h5>实名认证</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="form-horizontal" style="" id="">
+            <div class="row">
+                <div class="col-sm-12">
+                	<div class="text-center p-lg">
+                        <h3>选择认证类型</h3>
+                        <span>实名认证决定了账号归属，为了您的账号安全，请根据实名情况进行实名认证</span><br/>
+                        <span>若您有任何问题，可查看<a href="#">实名认证指引</a></span>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+					<div class="ibox float-e-margins" style="width: 40%;float: right;border:1px solid #e7eaec">
+						<div class="ibox-content" style="text-align: center;height: 300px;">
+							<img width="100px" height="100px"
+					                      src="${ctxPath}/static/img/users.png">
+							<h3>个人认证</h3>
+							<span>适用于个人用户，账号归属于个人</span><br/><br/><br/>
+							<button title="暂未开放" class="btn btn-default btn-sm"><span class="bold">暂未开放</span>
+                        	</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="ibox float-e-margins"style="width: 40%;float: left;border:1px solid #e7eaec">
+						<div class="ibox-content" style="text-align: center;height: 300px;">
+							<img width="100px" height="100px"
+					                      src="${ctxPath}/static/img/company.png">
+							<h3>企业认证</h3>
+							<span>适用于企业、政府、事业单位、<br/>学校、组织等，账号归属于企业</span><br/><br/>
+							<button title="开始认证" class="btn btn-primary btn-sm" onclick="javascript:window.location.href='company_auth'"><span class="bold">开始认证</span>
+                        	</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-12">
+                	<div class="text-center p-lg">
+                        <span>若您有任何问题，可查看<a href="#">实名认证指引</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@}

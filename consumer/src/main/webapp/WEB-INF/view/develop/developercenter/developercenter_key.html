@@ -1,0 +1,62 @@
+@layout("/common/_container.html"){
+	@for(item in keyList){
+	<!-- 起 -->
+   	 <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                 <div class="ibox-title">
+                    <h5>key</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" onclick="DevelopercenterKey.openEditKey(${item.id!})" class="btn btn-primary">编辑</button>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-1 text-left">
+                                    <label class="control-label">应用名称</label>
+                                </div>
+                                <p>${item.appname!}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-1 text-left">
+                                    <label class="control-label">应用类型</label>
+                                </div>
+                                <p>${item.apptype!}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-1 text-left">
+                                    <label class="control-label">应用简介</label>
+                                </div>
+                                <p>${item.appintro!}</p>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div><!-- 分割线 -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-1 text-left">
+                                    <label class="control-label">App key</label>
+                                </div>
+                                <p id="appkey${item.id!}">${item.appkey!}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group col-sm-1 text-left">
+                                    <label class="control-label">Secret key</label>
+                                </div>
+                                <p style="display: inline;" id="secretkey${item.id!}">${item.secretkey!}</p>&nbsp;&nbsp;&nbsp;
+                                <button data-toggle="button" class="btn btn-danger" type="button" style="display: inline;" onclick="DevelopercenterKey.rebuildKey(${item.id!})">重置</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+    <!-- 止 22-->
+    @}
+    <button type="button" class="btn btn-primary" onclick="DevelopercenterKey.openAddDevKey()" style="margin-left: 20px;">
+    	新建应用
+	</button>
+<script src="${ctxPath}/static/modular/develop/developercenter/developercenter_key.js"></script>
+@}

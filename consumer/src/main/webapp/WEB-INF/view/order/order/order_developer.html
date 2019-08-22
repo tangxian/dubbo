@@ -1,0 +1,78 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订单管理管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <#NameCon id="ordernum" name="订单号" />
+                            </div>
+                            <div class="col-sm-2">
+                            	<div class="input-group">
+								    <div class="input-group-btn">
+								        <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">
+								            	应用
+								        </button>
+								    </div>
+								    <select class="chosen-select" id="appname" style="width: 127px;">
+                                	</select>
+								</div>
+                            </div>
+                            <div class="col-sm-2">
+                                <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#NameCon id="devuuid" name="用户ID" />
+                            </div>
+                           <!-- <div class="col-sm-2">
+                                <#SelectCon id="platform" name="平台类型" />
+                            </div>
+                            <div class="col-sm-2" style="margin-top: 10px;">
+                                <#SelectCon id="paytype" name="支付方式" />
+                            </div>
+                            <div class="col-sm-2" style="margin-top: 10px;">
+                                <#SelectCon id="orderstatus" name="订单状态" />
+                            </div>-->
+                            <div class="col-sm-1" >
+                                <#button name="搜索" icon="fa-search" clickFun="Order.search()"/>
+                            </div>
+                            <div class="col-sm-1" >
+                                <button id="js-export" type="button" onclick="Order.exportDevelop()" class="btn btn-primary">导出</button>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="OrderTableToolbar" role="group">
+                            @if(shiro.hasPermission("/order/add")){
+                                <#button name="添加" icon="fa-plus" clickFun="Order_user.openAddOrder()"/>
+                            @}
+                            @if(shiro.hasPermission("/order/update")){
+                                <#button name="修改" icon="fa-edit" clickFun="Order_user.openOrderDetail()" space="true"/>
+                            @}
+                            @if(shiro.hasPermission("/order/delete")){
+                                <#button name="删除" icon="fa-remove" clickFun="Order_user.delete()" space="true"/>
+                            @}
+                        </div>
+                        <#table id="OrderTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/order/order/order_developer.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+@}

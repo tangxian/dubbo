@@ -1,0 +1,41 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订单统计</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-2">
+                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                            </div>
+                            <div class="col-sm-1">
+                                <#button name="搜索" icon="fa-search" clickFun="DivideIntoOrder.search()"/>
+                            </div>
+                            <div class="col-sm-1">
+                                <button id="js-export" type="button" onclick="DivideIntoOrder.exportDivideIntoOrder()" class="btn btn-primary">导出</button>
+                            </div>
+                        </div>
+                        <#table id="DivideIntoTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/statistic/statistic/divideInto_order.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+@}

@@ -1,0 +1,25 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="developercenterKeyInfoForm">
+            <div class="row">
+
+                      <#input id="appname" name="应用名称" underline="true" style="width:50%"/>
+                      <#input id="apptype" name="应用类型" underline="true" style="width:50%"/>
+                      <#input id="appintro" name="应用简介" underline="true" style="width:50%"/>
+                            
+
+            </div>
+
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="DevKeyInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="DevKeyInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/develop/developercenter/developercenter_key_info.js"></script>
+@}

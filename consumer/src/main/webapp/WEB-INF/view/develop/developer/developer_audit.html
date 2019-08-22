@@ -1,0 +1,125 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/common/web-upload-file.js"></script>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row">
+                <input type="hidden" id="id" value=${item.id!} name="id" type="text">
+                <input type="text" id="salemodel1" value="${item.salemodel!}" hidden>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">邮箱账号</label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input class="form-control" id="devaccount" value="${item.devaccount!}" name="devaccount"
+                                   type="text" style="width: 300px;"  disabled="disabled">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">应用名称</label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input class="form-control" id="appname" value="${item.appname!}" name="appname" type="text"
+                                   style="width: 300px;" disabled="disabled">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">企业名称 </label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input id="companyname" name="companyname" type="text" placeholder="请输入企业名称"
+                                   style="width: 300px;"
+                                   value="${item.companyname!}" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">企业信用码 </label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input id="companycode" name="companycode" type="text" placeholder="请输入企业统一社会信用码"
+                                   style="width: 300px;"
+                                   value="${item.companycode!}" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">企业地址 </label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input id="companyaddress" name="companyaddress" type="text" placeholder="请输入企业地址"
+                                   style="width: 300px;"
+                                   value="${item.companyaddress!}" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">联系人 </label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input id="contacts" name="contacts" type="text" placeholder="请输入联系人" style="width: 300px;"
+                                   value="${item.contacts!}" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">安全手机 </label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input id="phonenum" name="phonenum" type="text" placeholder="请输入手机号" style="width: 300px;"
+                                   value="${item.phonenum!}" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">销售模式</label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <select id="salemodel" class="form-control"
+                                    onchange="DeveloperInfoDlg.modelChange(this.value)"
+                                    style="width: 300px;">
+                                <option value="1">统一零售价</option>
+                                <option value="2">统一定价</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divideproportionDiv">
+                        <label class="col-sm-1 control-label" style="width: 10%;">销售分成比例(%)</label>
+                        <div class="col-sm-11" style="width: 90%;">
+                            <input class="form-control" id="divideproportion" value="${item.divideproportion!} "
+                                   name="divideproportion" type="text" style="width: 300px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">合同附件</label>
+                        <div class="col-sm-9" style="top: -10px;width: 90%;">
+                            <input class="form-control" readonly="readonly" value="${item.contractfile!}"
+                                   id="contractfilefilename" type="text" style="width: 45%;display: inline-block;">
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="${ctxPath}/kaptcha/${item.contractfilepath}/${item.contractfile!}">文件下载</a>
+                        </div>
+                        <input type="hidden" id="contractfile" value="${item.contractfilepath!}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" style="width: 10%;">营业执照</label>
+                        <div class="col-sm-4">
+                            <div id="licensefilePreId">
+                                <div>
+                                    <img width="200px" height="250px"
+                                         @if(isEmpty(item.licensefilepath)){
+                                         src="${ctxPath}/static/img/resource.png">
+                                    @}else{
+                                    src="${ctxPath}/kaptcha/${item.licensefilepath}">
+                                    @}
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="licensefile" value="${item.licensefilepath!}"/>
+                    </div>
+                </div>
+            </div>
+            <!-- 上传附件进度条 -->
+            <div id="progressBarNum"></div>
+        </div>
+
+        <div class="row btn-group-m-t">
+            <div class="col-sm-10">
+                <#button btnCss="info" name="通过" id="ensure" icon="fa-check" clickFun="DeveloperInfoDlg.pass()"/>
+                <#button btnCss="danger" name="驳回" id="cancel" icon="fa-eraser" clickFun="DeveloperInfoDlg.reject()"/>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="${ctxPath}/static/modular/develop/developer/developer_info.js"></script>
+@}

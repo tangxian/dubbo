@@ -1,0 +1,200 @@
+@layout("/common/_container.html"){
+<div class="container-fluid" style="padding: 0 !important;">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">本月</span>
+                    <h5>收入</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id="orderAmount">0</h1>
+                    <div class="stat-percent font-bold text-success">
+                        98% <i class="fa fa-bolt"></i>
+                    </div>
+                    <small>收入统计</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-info pull-right">本月</span>
+                    <h5>订单</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id="orderCount">0</h1>
+                    <div class="stat-percent font-bold text-info">
+                        20% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>订单数量</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">全年</span>
+                    <h5>开发者</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id="devCount">0</h1>
+                    <div class="stat-percent font-bold text-navy">
+                        44% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>开发者</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <span class="label label-primary pull-right">全年</span>
+                    <h5>资源</h5>
+                </div>
+                <div class="ibox-content">
+                    <h1 class="no-margins" id="resCount">0</h1>
+                    <div class="stat-percent font-bold text-navy">
+                        38% <i class="fa fa-level-up"></i>
+                    </div>
+                    <small>资源</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分割线 -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="order_month" onclick="Blackboard.selectMonthOrder()"
+                                    class="btn btn-xs btn-white">月
+                            </button>
+                            <button type="button" id="order_year" onclick="Blackboard.selectYearOrder()"
+                                    class="btn btn-xs btn-white active">年
+                            </button>
+                            <a href="#"
+                               onclick="open_new_page.openTabPage(Feng.ctxPath+'/statistic/order_statistic', '订单统计')"
+                               class="btn btn-xs btn-default">详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <div class="flot-chart">
+                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ul class="stat-list">
+                                <li>
+                                    <h2 class="no-margins" id="orderAllCount">0</h2>
+                                    <small>订单总数</small>
+                                    <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 48%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins" id="orderMonthCount">0</h2>
+                                    <small>最近一个月订单</small>
+                                    <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 60%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <h2 class="no-margins" id="orderMonthAmount">0</h2>
+                                    <small>最近一个月销售额</small>
+                                    <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
+                                    </div>
+                                    <div class="progress progress-mini">
+                                        <div style="width: 22%;" class="progress-bar"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分割线 -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>渠道</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="develop_month" onclick="Blackboard.selectMonthDevelop()"
+                                    class="btn btn-xs btn-white">月
+                            </button>
+                            <button type="button" id="develop_year" onclick="Blackboard.selectYearDevelop()"
+                                    class="btn btn-xs btn-white active">年
+                            </button>
+                            <a href="#"
+                               onclick="open_new_page.openTabPage(Feng.ctxPath+'/statistic/develop_statistic', '渠道统计')"
+                               class="btn btn-xs btn-default">详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <#table id="DevelopTable"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>资源</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="resource_month" onclick="Blackboard.selectMonthResource()"
+                                    class="btn btn-xs btn-white">月
+                            </button>
+                            <button type="button" id="resource_year" onclick="Blackboard.selectYearResource()"
+                                    class="btn btn-xs btn-white active">年
+                            </button>
+                            <a href="#"
+                               onclick="open_new_page.openTabPage(Feng.ctxPath+'/statistic/resource_statistic', '资源使用统计')"
+                               class="btn btn-xs btn-default">详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <#table id="ResourceTable"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EayPIE -->
+<script src="${ctxPath}/static/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+<!-- Flot -->
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.symbol.js"></script>
+<script src="${ctxPath}/static/modular/blackboard/blackboard.js"></script>
+<script src="${ctxPath}/static/js/common/DateUtils.js"></script>
+<script src="${ctxPath}/static/js/common/open-new-page.js"></script>
+@}

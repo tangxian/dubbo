@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tangxian.dubbo.dao.DevKeyMapper">
+<mapper namespace="com.tangxian.dao.DevKeyMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.tangxian.dubbo.entity.DevKey">
+    <resultMap id="BaseResultMap" type="com.tangxian.entity.DevKey">
         <id column="id" property="id" />
         <result column="appname" property="appname" />
         <result column="apptype" property="apptype" />
@@ -22,7 +22,7 @@
     </sql>
 
 <!--根据id查询Devkey-->
-    <select id="getDevKeyById" resultType="com.tangxian.dubbo.entity.DevKey">
+    <select id="getDevKeyById" resultType="com.tangxian.entity.DevKey">
         select
         <include refid="Base_Column_List"></include>
         from dev_key

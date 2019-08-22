@@ -1,0 +1,166 @@
+@layout("/common/_container.html"){
+<div class="container-fluid" style="padding: 0 !important;">
+    <!-- 分割线 -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单</h5>
+                    <div class="ibox-content">
+                        <div class="row row-lg">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <#SelectCon id="platform" name="平台类型" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <#button name="搜索" icon="fa-search" clickFun="OrderStatistic.search_dashboard_chart()"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+                            <div class="ibox-content">
+                                <br/>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                        <div class="flot-chart">
+                                            <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <ul class="stat-list">
+                                            <li>
+                                                <h2 class="no-margins" id="orderAllCount"></h2>
+                                                <small>订单总数</small>
+                                                <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i>
+                                                </div>
+                                                <div class="progress progress-mini">
+                                                    <div style="width: 48%;" class="progress-bar"></div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <h2 class="no-margins" id="orderMonthCount"></h2>
+                                                <small>最近一个月订单</small>
+                                                <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i>
+                                                </div>
+                                                <div class="progress progress-mini">
+                                                    <div style="width: 60%;" class="progress-bar"></div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <h2 class="no-margins" id="orderMonthAmount"></h2>
+                                                <small>最近一个月销售额</small>
+                                                <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i>
+                                                </div>
+                                                <div class="progress progress-mini">
+                                                    <div style="width: 22%;" class="progress-bar"></div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--分割线-->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>平台占比</h5>
+                    <div class="ibox-content">
+                        <div class="row row-lg">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">
+                                                    应用
+                                                </button>
+                                            </div>
+                                            <select class="chosen-select" id="appname" style="width: 127px;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <#TimeCon id="beginTime_pie_chart" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <#TimeCon id="endTime_pie_chart" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <#button name="搜索" icon="fa-search" clickFun="OrderStatistic.search_pie_chart()"/>
+                                    </div>
+                                </div>
+                                <br/>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="ibox-content" style="height:400px;">
+                                    <div class="echarts" id="order_pie_chart" style="height:400px;"></div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="ibox-content" style="height:400px;">
+                                    <div class="echarts" id="amount_pie_chart" style="height:400px;"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- EayPIE -->
+<script src="${ctxPath}/static/js/plugins/easypiechart/jquery.easypiechart.js"></script>
+<!-- Flot -->
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="${ctxPath}/static/js/plugins/flot/jquery.flot.symbol.js"></script>
+<script src="${ctxPath}/static/modular/statistic/statistic/order_statistic.js"></script>
+
+<script src="${ctxPath}/static/js/common/DateUtils.js"></script>
+
+<script src="${ctxPath}/static/js/plugins/echarts/echarts-all.js"></script>
+<!-- 自定义js -->
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
+<script>
+    laydate.render({
+        elem: '#beginTime_pie_chart'
+    });
+    laydate.render({
+        elem: '#endTime_pie_chart'
+    });
+</script>
+@}

@@ -1,0 +1,79 @@
+@layout("/common/_container.html"){
+<!-- orris -->
+<link href="${ctxPath}/static/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+<div class="container-fluid" style="padding: 0 !important;">
+    <!-- 账户余额、财务起 -->
+    <div class="row">
+		<div class="col-sm-4">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>账户余额</h5>
+				</div>
+				<div class="ibox-content">
+					<h1 class="no-margins" id="orderAmount">¥39,350</h1>
+					<button data-toggle="button" class="btn btn-primary" type="button" style="margin-top: 5px;">充值</button>
+					<button data-toggle="button" class="btn btn-primary btn-outline" type="button" style="margin-top: 5px;">提现</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>财务</h5>
+				</div>
+				<div class="ibox-content" style="height: 112.5px;">
+					<h1 class="no-margins" id="orderCount"></h1>
+					<button data-toggle="button" class="btn btn-primary btn-outline" type="button">申请发票</button>
+					<button data-toggle="button" class="btn btn-primary btn-outline" type="button">申请合同</button>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!-- 账户余额、财务止 -->
+    <!-- 分成收入起 -->
+    <div class="row" id="DivideOrder">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分成收入</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="AmountDivideByDay" onclick="Developeramount.selectDeveloperAmountDivideByDay()" class="btn btn-xs btn-white">日</button>
+                            <button type="button" id="AmountDivideByMonth" onclick="Developeramount.selectDeveloperAmountDivideByMonth()" class="btn btn-xs btn-white">月</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="divideamount"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分成收入止 -->
+    <!-- 实例消费起 -->
+    <div class="row" id="ConsumeOrder">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>实例消费</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" id="AmountConsumeByDay"  onclick="Developeramount.selectDeveloperAmountConsumeByDay()" class="btn btn-xs btn-white">日</button>
+                            <button type="button" id="AmountConsumeByMonth" onclick="Developeramount.selectDeveloperAmountConsumeByMonth()" class="btn btn-xs btn-white">月</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div id="consume"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 实例消费止 -->
+</div>
+ <!-- Morris -->
+<script src="${ctxPath}/static/js/plugins/morris/raphael-2.1.0.min.js"></script>
+<script src="${ctxPath}/static/js/plugins/morris/morris.js"></script>
+<script src="${ctxPath}/static/modular/develop/developeraccount/developer_amount.js"></script>
+<script src="${ctxPath}/static/js/common/DateUtils.js"></script>
+@}

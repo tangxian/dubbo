@@ -1,0 +1,105 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/common/web-upload-file.js"></script>
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h5>新建资源</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="form-horizontal" id="resourceInfoForm">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">资源文件</label>
+                        <div class="col-sm-11">
+                            <select class="col-sm-11 chosen-select" id="resourceFile" style="width: 200px;height: 34px"
+                                    onchange="ResourceInfoDlg.resourceFileChange(this.value)">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">资源编码</label>
+                        <div class="col-sm-11">
+                            <input class="form-control" id="resourcecode" name="resourcecode" type="text"
+                                   style="width: 200px;">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">资源名称</label>
+                        <div class="col-sm-11">
+                            <input class="form-control" id="resourcename" name="resourcename" type="text"
+                                   style="width: 300px;">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">资源类型</label>
+                        <div class="col-sm-11" id="resourceitem">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">出版社</label>
+                        <div class="col-sm-11">
+                            <input class="form-control" id="publish" name="publish" type="text"
+                                   style="width: 200px;">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">作者</label>
+                        <div class="col-sm-11">
+                            <input class="form-control" id="author" name="author" type="text" style="width: 200px;">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">简介</label>
+                        <div class="col-sm-11">
+                            <div id="editor" class="editorHeight">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">封面图片</label>
+                        <div class="col-sm-4">
+                            <div id="coverpicturePreId">
+                                <div><img width="300px" height="400px"
+                                          src="${ctxPath}/static/img/resource.png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="head-scu-btn upload-btn" id="coverpictureBtnId">
+                                <i class="fa fa-upload"></i>&nbsp;上传
+                            </div>
+                        </div>
+                        <input type="hidden" id="coverpicture" value=""/>
+                    </div>
+
+                </div>
+                <!-- 上传附件进度条 -->
+                <div class="progress progress-striped" id="progressTipArea" style="margin-top: 20px;">
+                    <div id="progressBar" style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0"
+                         role="progressbar" class="progress-bar progress-bar-info">
+                    </div>
+                </div>
+                <div id="progressBarNum"></div>
+                <div class="row btn-group-m-t">
+                    <div class="col-sm-10">
+                        <#button name="提交" id="ensure" icon="fa-check"
+                        clickFun="ResourceInfoDlg.addSubmit()"/>
+                        <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser"
+                        clickFun="ResourceInfoDlg.close()"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="${ctxPath}/static/js/common/wangEditor.min.js"></script>
+    <script src="${ctxPath}/static/modular/resource/resource/resource_info.js"></script>
+    @}

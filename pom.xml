@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.4.RELEASE</version>
+		<version>2.0.1.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<properties>
@@ -18,13 +18,29 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<shiro.version>1.4.0</shiro.version>
-		<ehcache.version>3.3.1</ehcache.version>
-		<ehcache.core.version>2.6.11</ehcache.core.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
+        <ehcache.version>3.3.1</ehcache.version>
+        <beetl.version>2.9.3</beetl.version>
+        <swagger.version>2.9.2</swagger.version>
 		<mysql-connector-java.version>8.0.11</mysql-connector-java.version>
+        <jwt.version>0.9.0</jwt.version>
 		<log4j.version>1.2.16</log4j.version>
 	</properties>
 
 	<dependencies>
+        <!--代码生成器-->
+        <dependency>
+          <groupId>cn.stylefeng.guns</groupId>
+          <artifactId>guns-generator</artifactId>
+          <version>1.0.0</version>
+        </dependency>
+
+        <!--核心组件-->
+        <dependency>
+          <groupId>cn.stylefeng.roses</groupId>
+          <artifactId>kernel-core</artifactId>
+          <version>1.1.0</version>
+        </dependency>
 		<!--mysql -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -32,6 +48,32 @@
 			<version>${mysql-connector-java.version}</version>
 		</dependency>
 		<!--dubbo-springBoot依赖 -->
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-test</artifactId>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+          <optional>true</optional>
+        </dependency>
 		<dependency>
 			<groupId>com.alibaba.spring.boot</groupId>
 			<artifactId>dubbo-spring-boot-starter</artifactId>
@@ -46,9 +88,85 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+
+		<!--shiro依赖和缓存-->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>net.sf.ehcache</groupId>
+					<artifactId>ehcache-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sf.ehcache.internal/ehcache-core -->
+		<dependency>
+			<groupId>net.sf.ehcache.internal</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.10.6</version>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!--验证码-->
+		<dependency>
+			<groupId>com.github.penggle</groupId>
+			<artifactId>kaptcha</artifactId>
+			<version>${kaptcha.version}</version>
+		</dependency>
+
+		<!--beetl模板引擎-->
+		<dependency>
+			<groupId>com.ibeetl</groupId>
+			<artifactId>beetl</artifactId>
+			<version>${beetl.version}</version>
+		</dependency>
+
+		<!--swagger-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<!--jwt token-->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>${jwt.version}</version>
+		</dependency>
+		<!--Excel导出-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.16</version>
 		</dependency>
 		<!-- activeMQ -->
 		<dependency>

@@ -1,0 +1,216 @@
+@layout("/common/_container.html"){
+<script src="${ctxPath}/static/js/common/web-upload-file.js"></script>
+<div class="ibox float-e-margins">
+	<div class="tabs-container">
+        <ul class="nav nav-tabs">
+            <li class="" data-id="tabContent1"><a data-toggle="tab" href="#tab-1" aria-expanded="false">资源详情</a>
+            </li>
+            <li class="active" data-id="tabContent2"><a data-toggle="tab" href="#tab-2" aria-expanded="false">上架详情</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+        	<!-- 选项卡内容1 -->
+            <div id="tab-1" class="tab-pane">
+                <div class="panel-body">
+               	    <div class="ibox-content">
+				        <div class="form-horizontal" id="resourceInfoForm">
+							<input type="hidden" id="id" value="${resource.id!}">
+				            <input type="hidden" id="introVal" value='${resource.intro!}'>
+				            <input type="hidden" id="resourceitemVal" value='${resource.resourceitem!}'>
+				            <div class="row">
+				                <div class="col-sm-12">
+				                	<div class="form-group">
+				                        <label class="col-sm-1 control-label">资源编码</label>
+				                        <div class="col-sm-11">
+				                            <input class="form-control" id="resourcecode" name="resourcecode" type="text" value="${resource.resourcecode!}" style="width: 200px;" readonly>
+				
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label">资源名称</label>
+				                        <div class="col-sm-11">
+				                            <input class="form-control" id="resourcename" name="resourcename" type="text" value="${resource.resourcename!}" style="width: 400px;" readonly>
+				
+				                        </div>
+				                    </div>
+									<input type="hidden" id="resourceitem_hidden" value="${resource.resourceitem!}"/>
+									<div class="form-group">
+										<label class="col-sm-1 control-label">资源类型</label>
+										<div class="col-sm-11"  id="resourceitem">
+										</div>
+									</div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label">出版社</label>
+				                        <div class="col-sm-11">
+				                            <input class="form-control" id="publish" name="publish" type="text" value="${resource.publish!}" style="width: 200px;">
+				
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label">作者</label>
+				                        <div class="col-sm-11">
+				                            <input class="form-control" id="author" name="author" type="text" value="${resource.author!}" style="width: 200px;">
+				
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label">简介</label>
+				                        <div class="col-sm-11">
+				                            <div id="editor" class="editorHeight">
+				                            </div>
+				                        </div>
+				                    </div>
+				                    
+				                	<div class="hr-line-dashed"></div>
+				                	
+				                	<div class="form-group">
+				                        <label class="col-sm-1 control-label">封面图片</label>
+				                        <div class="col-sm-4">
+				                            <div id="coverpicturePreId">
+									            <div><img width="200px" height="250px"
+									                      src="${ctxPath}/kaptcha/${resource.coverpicture!}">
+									            </div>
+									        </div>
+				                        </div>
+				                        <div class="col-sm-2">
+									        <div class="head-scu-btn upload-btn" id="coverpictureBtnId">
+									            <i class="fa fa-upload"></i>&nbsp;上传
+									        </div>
+									    </div>
+									    <input type="hidden" id="coverpicture" value="${resource.coverpicture!}"/>
+				                    </div>
+				                </div>
+				            </div>
+							<div class="progress progress-striped" id="progressTipArea" style="margin-top: 20px;">
+				                <div id="progressBar" style="width: 0%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" role="progressbar" class="progress-bar progress-bar-info">
+				                </div>
+				            </div>
+				            <div id="progressBarNum"></div>
+				            <div class="row btn-group-m-t">
+				                <div class="col-sm-10">
+				                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ResourceInfoDlg.editSubmit()"/>
+				                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ResourceInfoDlg.close()"/>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+                </div>
+            </div>
+            <!-- 选项卡内容2 -->
+            <div id="tab-2" class="tab-pane active" onclick="">
+                <div class="panel-body">
+                	<div class="ibox-content">
+				        <div class="form-horizontal" id="resourcePutAwayForm">
+				        	<input type="hidden" id="putawayinfoid" value="${putawayinfo.id!}">
+							<input type="hidden" id="developerids" value="${putawayinfo.developerids!}">
+							<input type="hidden"  id="authorization1"  value="${putawayinfo.authorization!}">
+							<!-- 授权范围 -->
+							<div class="row">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="col-sm-1 control-label">授权范围</label>
+										<div class="col-sm-11">
+											<select class="chosen-select" id="authorization" name="authorization" onchange="ResourcePutAwayDlg.authChange(this.value)" style="width: 200px;display: inline;">
+												<option id="select2" value="2">指定开发者</option>
+												<option id="select1" value="1">全部开发者</option>
+											</select>
+											&nbsp;&nbsp;&nbsp;
+											<div class="input-group" id="developerdiv" style="display: inline;">
+												<select data-placeholder="选择开发者" class="chosen-select" id="developer" multiple style="width:200px;" tabindex="4">
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="hr-line-dashed"></div><!-- 分割线 -->
+				            <!-- 零售价 -->
+				            <div class="row">
+				                <div class="col-sm-12">
+				                	<div class="form-group">
+				                        <label class="col-sm-1 control-label">统一零售价(￥)</label>
+				                        <div class="col-sm-11">
+											<input class="form-control" id="retailprice" name="retailprice" value="${putawayinfo.retailprice!}" type="text"  style="width: 200px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label">分成比例</label>
+				                        <div class="col-sm-11">
+											<label class="col-sm-1 control-label">开发者(%)</label><input class="form-control"  value="${putawayinfo.retailpricedividedeveloper!}" id="retailpricedividedeveloper" name="retailpricedividedeveloper" type="text"  style="width: 200px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label"></label>
+				                        <div class="col-sm-11">
+											<label class="col-sm-1 control-label">出版社(%)</label><input class="form-control" value="${putawayinfo.retailpricedividepublish!}" id="retailpricedividepublish" name="retailpricedividepublish" type="text"  style="width: 200px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label"></label>
+				                        <div class="col-sm-11">
+											<label class="col-sm-1 control-label">迪瑞云(%)</label><input class="form-control" value="${putawayinfo.retailpricedividediruicloud!}" id="retailpricedividediruicloud" name="retailpricedividediruicloud" value="30" readonly="readonly" type="text"  style="width: 200px;">
+										</div>
+				                    </div>
+				                 </div>
+				            </div>
+				            <div class="hr-line-dashed"></div><!-- 分割线 -->
+				            <div class="row">
+				                <div class="col-sm-12">
+				                	<div class="form-group">
+				                        <label class="col-sm-1 control-label">统一定价(￥)</label>
+				                        <div class="col-sm-11">
+											<input class="form-control" id="unifiedprice" value="${putawayinfo.unifiedprice!}"  name="unifiedprice" type="text"  style="width: 200px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label">分成比例</label>
+				                        <div class="col-sm-11">
+											<label class="col-sm-1 control-label">出版社(%)</label><input class="form-control" value="${putawayinfo.unifiedpricedividepublish!}" id="unifiedpricedividepublish" name="unifiedpricedividepublish" type="text"  style="width: 200px;">
+				                        </div>
+				                    </div>
+				                    <div class="form-group">
+				                        <label class="col-sm-1 control-label"></label>
+				                        <div class="col-sm-11">
+											<label class="col-sm-1 control-label">迪瑞云(%)</label><input class="form-control"  value="${putawayinfo.unifiedpricedividediruicloud!}" id="unifiedpricedividediruicloud" name="unifiedpricedividediruicloud" value="30" readonly="readonly" type="text"  style="width: 200px;">
+				                        </div>
+				                    </div>
+				                 </div>
+				            </div>
+				            <!-- 开发者购买价 -->
+				            <div class="row btn-group-m-t">
+				                <div class="col-sm-10">
+				                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="ResourcePutAwayDlg.editSubmit()"/>
+				                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ResourcePutAwayDlg.close()"/>
+				                </div>
+				            </div>
+				        </div>
+			    	</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="${ctxPath}/static/js/common/wangEditor.min.js"></script>
+<script src="${ctxPath}/static/modular/resource/resource/resource_info.js"></script>
+<script src="${ctxPath}/static/modular/resource/resource/resource_putaway.js"></script>
+<script type="text/javascript">
+	$('.nav-tabs li').click(function(){
+	　　var _id = $(this).attr('data-id');
+	　　if(_id=='tabContent1'){
+			//去除button变大的样式
+			$(".webuploader-pick").removeClass("webuploader-pick");
+			// 初始化头像上传
+		    var avatarUp = new $WebUpload("coverpicture");
+		    avatarUp.setUploadBarId("progressBar");
+		    avatarUp.init();
+		    $("#coverpictureBtnId").css("width","69px");
+		    $("#coverpictureBtnId").css("height","32px");
+		    // 初始化资源上传
+		    var fileUp = new $WebUploadFile("resourcefile");
+		    fileUp.setUploadBarId("progressBar");
+		    fileUp.init();
+	   }
+	});
+</script>
+@}

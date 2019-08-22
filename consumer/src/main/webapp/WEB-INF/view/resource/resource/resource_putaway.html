@@ -1,0 +1,164 @@
+@layout("/common/_container.html"){
+<style>
+    #retailpricedividedeveloper,#retailpricedividepublish,#retailpricedividediruicloud,#unifiedpricedividepublish,#unifiedpricedividediruicloud{
+        width:265px;
+        height:40px;
+        border:1px solid #ddd;
+        padding-left:20px;
+        box-sizing:border-box;
+        background-image:url(../../../../static/img/percent.png);
+        background-repeat:no-repeat;
+        background-position:95% center;
+        padding-right:50px;
+    }
+    #retailprice,#unifiedprice{
+        width:265px;
+        height:40px;
+        border:1px solid #ddd;
+        padding-left:20px;
+        box-sizing:border-box;
+        background-image:url(../../../../static/img/money.png);
+        background-repeat:no-repeat;
+        background-position:95% center;
+        padding-right:50px;
+    }
+
+
+</style>
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal" id="resourcePutAwayForm">
+			<input type="hidden" id="resourceid" value="${resource.id!}">
+            <div class="row">
+                <div class="col-sm-4 b-r">
+                	<div style="text-align: center;">
+                		<img width="200px" height="250px"
+		                      src="${ctxPath}/kaptcha/${resource.coverpicture!}">
+		            </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">资源名称</label>
+                        <div class="col-sm-10">
+                        	<p style="margin-top: 7px;">${resource.resourcename!}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">类别</label>
+                        <div class="col-sm-10">
+                        	<p style="margin-top: 7px;">${resourceitemName!}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">出版社</label>
+                        <div class="col-sm-10">
+                        	<p style="margin-top: 7px;">${resource.publish!}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">作者</label>
+                        <div class="col-sm-10">
+                        	<p style="margin-top: 7px;">${resource.author!}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">简介</label>
+                        <div class="col-sm-10">
+                        	<p style="margin-top: 7px;">${resource.intro!}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div><!-- 分割线 -->
+            <!-- 授权范围 -->
+            <input type="hidden" id="developerids" value="">
+            <input type="hidden"  id="authorization1"  value="2">
+            <div class="row">
+                <div class="col-sm-12">
+                	<div class="form-group">
+                        <label class="col-sm-1 control-label">授权范围</label>
+                        <div class="col-sm-11">
+					        <select class="chosen-select" id="authorization" onchange="ResourcePutAwayDlg.authChange(this.value)" style="width: 200px;display: inline;">
+								<option value="2">指定开发者</option>
+					       		<option value="1">全部开发者</option>
+					        </select>
+					        &nbsp;&nbsp;&nbsp;
+					        <div class="input-group" id="developerdiv" style="display: inline;">
+						        <select data-placeholder="选择开发者" class="chosen-select" id="developer" multiple style="width:200px;" tabindex="4">
+	                            </select>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+            <div class="hr-line-dashed"></div><!-- 分割线 -->
+            <!-- 零售价 -->
+            <div class="row">
+                <div class="col-sm-12">
+                	<div class="form-group">
+                        <label class="col-sm-1 control-label">统一零售价</label>
+                        <div class="col-sm-11">
+							<input class="form-control" id="retailprice" name="retailprice" type="text"  style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">分成比例</label>
+                        <div class="col-sm-11">
+							<label class="col-sm-1 control-label">开发者</label>
+                            <input class="form-control" id="retailpricedividedeveloper" name="retailpricedividedeveloper" type="text"  style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-11">
+							<label class="col-sm-1 control-label">出版社</label>
+                            <input class="form-control" id="retailpricedividepublish" name="retailpricedividepublish" type="text"  style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-11">
+							<label class="col-sm-1 control-label">迪瑞云</label>
+                            <input class="form-control" id="retailpricedividediruicloud" name="retailpricedividediruicloud" value="30" readonly="readonly" type="text"  style="width: 200px;">
+						</div>
+                    </div>
+                 </div>
+            </div>
+            <div class="hr-line-dashed"></div><!-- 分割线 -->
+            <div class="row">
+                <div class="col-sm-12">
+                	<div class="form-group">
+                        <label class="col-sm-1 control-label">统一定价</label>
+                        <div class="col-sm-11">
+							<input class="form-control" id="unifiedprice" name="unifiedprice" type="text"  style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">分成比例</label>
+                        <div class="col-sm-11">
+							<label class="col-sm-1 control-label">出版社</label>
+                            <input class="form-control" id="unifiedpricedividepublish" name="unifiedpricedividepublish" type="text"  style="width: 200px;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-11">
+							<label class="col-sm-1 control-label">迪瑞云</label>
+                            <input class="form-control" id="unifiedpricedividediruicloud" name="unifiedpricedividediruicloud" value="30" readonly="readonly" type="text"  style="width: 200px;">
+                        </div>
+                    </div>
+                 </div>
+            </div>
+            <!-- 开发者购买价 -->
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="上架" id="ensure" icon="fa-check" clickFun="ResourcePutAwayDlg.Submit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="ResourcePutAwayDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/resource/resource/resource_putaway.js"></script>
+@}
