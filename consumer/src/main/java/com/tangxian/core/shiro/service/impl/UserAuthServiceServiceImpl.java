@@ -16,6 +16,7 @@
 package com.tangxian.core.shiro.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.constant.state.ManagerStatus;
 import com.tangxian.core.shiro.ShiroUser;
@@ -30,7 +31,6 @@ import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,8 +47,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
     private IUserService userService;
     @Reference
     private IMenuService menuService;
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     public static UserAuthService me() {
         return SpringContextHolder.getBean(UserAuthService.class);

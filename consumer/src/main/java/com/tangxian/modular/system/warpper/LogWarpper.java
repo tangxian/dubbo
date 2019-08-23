@@ -16,12 +16,13 @@
 package com.tangxian.modular.system.warpper;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.tangxian.core.common.constant.factory.IConstantFactory;
-import com.tangxian.core.util.Contrast;
 import cn.stylefeng.roses.core.base.warpper.BaseControllerWrapper;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
+import com.tangxian.core.common.constant.factory.IConstantFactory;
+import com.tangxian.core.util.Contrast;
 
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,6 @@ import java.util.Map;
  * @date 2017年4月5日22:56:24
  */
 public class LogWarpper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
 
     public LogWarpper(Map<String, Object> single) {
         super(single);
@@ -57,7 +56,7 @@ public class LogWarpper extends BaseControllerWrapper {
         String message = (String) map.get("message");
 
         Integer userid = (Integer) map.get("userid");
-        map.put("userName", constantFactory.getUserNameById(userid));
+        map.put("userName", ConstantFactory.me().getUserNameById(userid));
 
         //如果信息过长,则只截取前100位字符串
         if (ToolUtil.isNotEmpty(message) && message.length() >= 100) {

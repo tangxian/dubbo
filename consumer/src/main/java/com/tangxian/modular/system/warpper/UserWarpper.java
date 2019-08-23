@@ -19,6 +19,7 @@ import cn.stylefeng.roses.core.base.warpper.BaseControllerWrapper;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 
 import java.util.List;
@@ -31,8 +32,7 @@ import java.util.Map;
  * @date 2017年2月13日 下午10:47:03
  */
 public class UserWarpper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     public UserWarpper(Map<String, Object> single) {
         super(single);

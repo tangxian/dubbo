@@ -20,6 +20,7 @@ import cn.stylefeng.roses.kernel.model.enums.YesOrNotEnum;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 
 import java.util.List;
@@ -32,8 +33,6 @@ import java.util.Map;
  * @date 2017年2月19日15:07:29
  */
 public class MenuWarpper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
 
     public MenuWarpper(Map<String, Object> single) {
         super(single);
@@ -53,7 +52,7 @@ public class MenuWarpper extends BaseControllerWrapper {
 
     @Override
     protected void wrapTheMap(Map<String, Object> map) {
-        map.put("statusName", constantFactory.getMenuStatusName((Integer) map.get("status")));
+        map.put("statusName", ConstantFactory.me().getMenuStatusName((Integer) map.get("status")));
         map.put("isMenuName", YesOrNotEnum.valueOf((Integer) map.get("ismenu")));
     }
 

@@ -18,6 +18,7 @@ package com.tangxian.modular.system.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.annotion.BussinessLog;
 import com.tangxian.core.common.constant.dictmap.NoticeMap;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.exception.BizExceptionEnum;
 import com.tangxian.core.log.LogObjectHolder;
@@ -53,8 +54,7 @@ public class NoticeController extends BaseController {
 
     @Reference
     private INoticeService noticeService;
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     /**
      * 跳转到通知列表首页

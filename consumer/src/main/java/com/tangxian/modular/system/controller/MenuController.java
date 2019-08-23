@@ -20,6 +20,7 @@ import com.tangxian.core.common.annotion.BussinessLog;
 import com.tangxian.core.common.annotion.Permission;
 import com.tangxian.core.common.constant.Const;
 import com.tangxian.core.common.constant.dictmap.MenuDict;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.constant.state.MenuStatus;
 import com.tangxian.core.common.exception.BizExceptionEnum;
@@ -61,8 +62,7 @@ public class MenuController extends BaseController {
     @Reference
     private IMenuService menuService;
 
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     /**
      * 跳转到菜单列表列表页面

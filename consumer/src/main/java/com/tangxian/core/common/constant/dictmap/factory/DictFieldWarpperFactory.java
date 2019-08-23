@@ -15,12 +15,11 @@
  */
 package com.tangxian.core.common.constant.dictmap.factory;
 
-import cn.stylefeng.roses.core.util.SpringContextHolder;
-import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.exception.BizExceptionEnum;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.tangxian.core.common.constant.factory.IConstantFactory;
 
 import java.lang.reflect.Method;
 
@@ -30,22 +29,17 @@ import java.lang.reflect.Method;
  * @author fengshuonan
  * @date 2017-05-06 15:12
  */
-@Component
 public class DictFieldWarpperFactory {
 
-    //private static IConstantFactory iConstantFactory = SpringContextHolder.getBean(IConstantFactory.class);
-    @Autowired(required = false)
-    private static IConstantFactory iConstantFactory;
-
     public static Object createFieldWarpper(Object parameter, String methodName) {
-        //IConstantFactory constantFactory = ConstantFactory.me();
+        IConstantFactory constantFactory = ConstantFactory.me();
         try {
             Method method = IConstantFactory.class.getMethod(methodName, parameter.getClass());
-            return method.invoke(iConstantFactory, parameter);
+            return method.invoke(constantFactory, parameter);
         } catch (Exception e) {
             try {
                 Method method = IConstantFactory.class.getMethod(methodName, Integer.class);
-                return method.invoke(iConstantFactory, Integer.parseInt(parameter.toString()));
+                return method.invoke(constantFactory, Integer.parseInt(parameter.toString()));
             } catch (Exception e1) {
                 throw new ServiceException(BizExceptionEnum.ERROR_WRAPPER_FIELD);
             }

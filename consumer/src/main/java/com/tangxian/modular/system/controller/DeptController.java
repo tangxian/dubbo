@@ -19,6 +19,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.annotion.BussinessLog;
 import com.tangxian.core.common.annotion.Permission;
 import com.tangxian.core.common.constant.dictmap.DeptDict;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.exception.BizExceptionEnum;
 import com.tangxian.core.common.node.ZTreeNode;
@@ -54,8 +55,7 @@ public class DeptController extends BaseController {
     @Reference
     private IDeptService deptService;
 
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     /**
      * 跳转到部门管理首页

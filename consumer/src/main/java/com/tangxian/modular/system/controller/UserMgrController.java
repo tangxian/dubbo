@@ -21,6 +21,7 @@ import com.tangxian.core.common.annotion.BussinessLog;
 import com.tangxian.core.common.annotion.Permission;
 import com.tangxian.core.common.constant.Const;
 import com.tangxian.core.common.constant.dictmap.UserDict;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.constant.state.ManagerStatus;
 import com.tangxian.core.common.exception.BizExceptionEnum;
@@ -70,8 +71,7 @@ public class UserMgrController extends BaseController {
     @Reference
     private IUserService userService;
 
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     /**
      * 跳转到注册页面

@@ -18,6 +18,7 @@ package com.tangxian.core.shiro;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.constant.Const;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -34,9 +35,6 @@ import java.util.List;
  * @author dafei, Chill Zhuang
  */
 public class ShiroKit {
-
-    @Reference
-    private static IConstantFactory constantFactory;
 
     private static final String NAMES_DELIMETER = ",";
 
@@ -264,7 +262,7 @@ public class ShiroKit {
      */
     public static List<Integer> getDeptDataScope() {
         Integer deptId = getUser().getDeptId();
-        List<Integer> subDeptIds = constantFactory.getSubDeptId(deptId);
+        List<Integer> subDeptIds = ConstantFactory.me().getSubDeptId(deptId);
         subDeptIds.add(deptId);
         return subDeptIds;
     }
@@ -275,7 +273,7 @@ public class ShiroKit {
     public static boolean isAdmin() {
         List<Integer> roleList = ShiroKit.getUser().getRoleList();
         for (Integer integer : roleList) {
-            String singleRoleTip = constantFactory.getSingleRoleTip(integer);
+            String singleRoleTip = ConstantFactory.me().getSingleRoleTip(integer);
             if (singleRoleTip.equals(Const.ADMIN_NAME)) {
                 return true;
             }

@@ -15,7 +15,6 @@
  */
 package com.tangxian.core.common.constant.factory;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.tangxian.modular.system.model.Dict;
 
 import java.io.UnsupportedEncodingException;
@@ -27,7 +26,6 @@ import java.util.List;
  * @author fengshuonan
  * @date 2017-06-14 21:12
  */
-@Service
 public interface IConstantFactory {
 
     /**
@@ -150,4 +148,5 @@ public interface IConstantFactory {
      * 通过手机号获取验证码
      */
     String getVerifyCode(String phonenum);
+
 }

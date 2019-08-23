@@ -20,6 +20,7 @@ import com.tangxian.core.common.annotion.BussinessLog;
 import com.tangxian.core.common.annotion.Permission;
 import com.tangxian.core.common.constant.Const;
 import com.tangxian.core.common.constant.dictmap.DictMap;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.exception.BizExceptionEnum;
 import com.tangxian.core.log.LogObjectHolder;
@@ -57,8 +58,7 @@ public class DictController extends BaseController {
     private IDictService dictService;
     @Reference
     private IDeptService deptService;
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     /**
      * 跳转到字典管理首页

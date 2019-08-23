@@ -16,6 +16,7 @@
 package com.tangxian.modular.system.warpper;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.modular.system.model.Dict;
 import cn.hutool.core.util.StrUtil;
@@ -33,8 +34,6 @@ import java.util.Map;
  * @date 2017年4月25日 18:10:31
  */
 public class DictWarpper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
 
     public DictWarpper(Map<String, Object> single) {
         super(single);
@@ -56,7 +55,7 @@ public class DictWarpper extends BaseControllerWrapper {
     protected void wrapTheMap(Map<String, Object> map) {
         StringBuffer detail = new StringBuffer();
         Integer id = Integer.valueOf(map.get("id").toString());
-        List<Dict> dicts = constantFactory.findInDict(id);
+        List<Dict> dicts = ConstantFactory.me().findInDict(id);
         if (dicts != null) {
             for (Dict dict : dicts) {
                 detail.append(dict.getCode() + ":" + dict.getName() + ",");

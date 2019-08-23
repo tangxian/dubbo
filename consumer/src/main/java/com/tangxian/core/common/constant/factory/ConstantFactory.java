@@ -15,20 +15,20 @@
  */
 package com.tangxian.core.common.constant.factory;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.util.StrUtil;
-import cn.stylefeng.roses.core.util.SpringContextHolder;
-import cn.stylefeng.roses.core.util.ToolUtil;
-import com.alibaba.dubbo.config.annotation.Service;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.constant.cache.Cache;
 import com.tangxian.core.common.constant.cache.CacheKey;
 import com.tangxian.core.common.constant.state.ManagerStatus;
 import com.tangxian.core.common.constant.state.MenuStatus;
 import com.tangxian.core.log.LogObjectHolder;
-import com.tangxian.modular.system.dao.*;
 import com.tangxian.modular.system.model.*;
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
+import cn.stylefeng.roses.core.util.SpringContextHolder;
+import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.tangxian.modular.system.service.*;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
@@ -46,17 +46,21 @@ import java.util.List;
  * @date 2017年2月13日 下午10:55:21
  */
 @Component
-@Service(interfaceClass =  IConstantFactory.class)
-@org.springframework.stereotype.Service
 @DependsOn("springContextHolder")
 public class ConstantFactory implements IConstantFactory {
 
-    private RoleMapper roleMapper = SpringContextHolder.getBean(RoleMapper.class);
-    private DeptMapper deptMapper = SpringContextHolder.getBean(DeptMapper.class);
-    private DictMapper dictMapper = SpringContextHolder.getBean(DictMapper.class);
-    private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
-    private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
-    private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
+    @Reference
+    private IRoleService roleService;
+    @Reference
+    private IDeptService deptService;
+    @Reference
+    private IDictService dictService;
+    @Reference
+    private IUserService userService;
+    @Reference
+    private IMenuService menuService;
+    @Reference
+    private INoticeService noticeService;
 
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
@@ -70,7 +74,7 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public String getUserNameById(Integer userId) {
-        User user = userMapper.selectById(userId);
+        User user = userService.selectById(userId);
         if (user != null) {
             return user.getName();
         } else {
@@ -86,7 +90,7 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public String getUserAccountById(Integer userId) {
-        User user = userMapper.selectById(userId);
+        User user = userService.selectById(userId);
         if (user != null) {
             return user.getAccount();
         } else {
@@ -106,7 +110,7 @@ public class ConstantFactory implements IConstantFactory {
         Integer[] roles = Convert.toIntArray(roleIds);
         StringBuilder sb = new StringBuilder();
         for (int role : roles) {
-            Role roleObj = roleMapper.selectById(role);
+            Role roleObj = roleService.selectById(role);
             if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
                 sb.append(roleObj.getName()).append(",");
             }
@@ -123,7 +127,7 @@ public class ConstantFactory implements IConstantFactory {
         if (0 == roleId) {
             return "--";
         }
-        Role roleObj = roleMapper.selectById(roleId);
+        Role roleObj = roleService.selectById(roleId);
         if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
             return roleObj.getName();
         }
@@ -139,7 +143,7 @@ public class ConstantFactory implements IConstantFactory {
         if (0 == roleId) {
             return "--";
         }
-        Role roleObj = roleMapper.selectById(roleId);
+        Role roleObj = roleService.selectById(roleId);
         if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
             return roleObj.getTips();
         }
@@ -152,7 +156,7 @@ public class ConstantFactory implements IConstantFactory {
     @Override
     @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
     public String getDeptName(Integer deptId) {
-        Dept dept = deptMapper.selectById(deptId);
+        Dept dept = deptService.selectById(deptId);
         if (ToolUtil.isNotEmpty(dept) && ToolUtil.isNotEmpty(dept.getFullname())) {
             return dept.getFullname();
         }
@@ -167,7 +171,7 @@ public class ConstantFactory implements IConstantFactory {
         Integer[] menus = Convert.toIntArray(menuIds);
         StringBuilder sb = new StringBuilder();
         for (int menu : menus) {
-            Menu menuObj = menuMapper.selectById(menu);
+            Menu menuObj = menuService.selectById(menu);
             if (ToolUtil.isNotEmpty(menuObj) && ToolUtil.isNotEmpty(menuObj.getName())) {
                 sb.append(menuObj.getName()).append(",");
             }
@@ -183,7 +187,7 @@ public class ConstantFactory implements IConstantFactory {
         if (ToolUtil.isEmpty(menuId)) {
             return "";
         } else {
-            Menu menu = menuMapper.selectById(menuId);
+            Menu menu = menuService.selectById(menuId);
             if (menu == null) {
                 return "";
             } else {
@@ -200,9 +204,11 @@ public class ConstantFactory implements IConstantFactory {
         if (ToolUtil.isEmpty(code)) {
             return "";
         } else {
-            Menu param = new Menu();
-            param.setCode(code);
-            Menu menu = menuMapper.selectOne(param);
+            EntityWrapper<Menu> menuEntityWrapper = new EntityWrapper<Menu>();
+            menuEntityWrapper.eq("code",code);
+            //Menu param = new Menu();
+            //param.setCode(code);
+            Menu menu = menuService.selectOne(menuEntityWrapper);
             if (menu == null) {
                 return "";
             } else {
@@ -219,7 +225,7 @@ public class ConstantFactory implements IConstantFactory {
         if (ToolUtil.isEmpty(dictId)) {
             return "";
         } else {
-            Dict dict = dictMapper.selectById(dictId);
+            Dict dict = dictService.selectById(dictId);
             if (dict == null) {
                 return "";
             } else {
@@ -236,7 +242,7 @@ public class ConstantFactory implements IConstantFactory {
         if (ToolUtil.isEmpty(dictId)) {
             return "";
         } else {
-            Notice notice = noticeMapper.selectById(dictId);
+            Notice notice = noticeService.selectById(dictId);
             if (notice == null) {
                 return "";
             } else {
@@ -251,15 +257,17 @@ public class ConstantFactory implements IConstantFactory {
     @Override
     @Cacheable(value = Cache.CONSTANT, key = "'dictionary'+#name+#val")
     public String getDictsByName(String name, Integer val) {
-        Dict temp = new Dict();
-        temp.setName(name);
-        Dict dict = dictMapper.selectOne(temp);
+        EntityWrapper<Dict> dictEntityWrapper = new EntityWrapper<Dict>();
+        dictEntityWrapper.eq("name",name);
+        //Dict temp = new Dict();
+        //temp.setName(name);
+        Dict dict = dictService.selectOne(dictEntityWrapper);
         if (dict == null) {
             return "";
         } else {
             Wrapper<Dict> wrapper = new EntityWrapper<>();
             wrapper = wrapper.eq("pid", dict.getId());
-            List<Dict> dicts = dictMapper.selectList(wrapper);
+            List<Dict> dicts = dictService.selectList(wrapper);
             for (Dict item : dicts) {
                 if (item.getNum() != null && item.getNum().equals(val)) {
                     return item.getName();
@@ -331,7 +339,7 @@ public class ConstantFactory implements IConstantFactory {
             return null;
         } else {
             EntityWrapper<Dict> wrapper = new EntityWrapper<>();
-            List<Dict> dicts = dictMapper.selectList(wrapper.eq("pid", id));
+            List<Dict> dicts = dictService.selectList(wrapper.eq("pid", id));
             if (dicts == null || dicts.size() == 0) {
                 return null;
             } else {
@@ -355,7 +363,7 @@ public class ConstantFactory implements IConstantFactory {
     public List<Integer> getSubDeptId(Integer deptid) {
         Wrapper<Dept> wrapper = new EntityWrapper<>();
         wrapper = wrapper.like("pids", "%[" + deptid + "]%");
-        List<Dept> depts = this.deptMapper.selectList(wrapper);
+        List<Dept> depts = deptService.selectList(wrapper);
 
         ArrayList<Integer> deptids = new ArrayList<>();
 
@@ -373,7 +381,7 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public List<Integer> getParentDeptIds(Integer deptid) {
-        Dept dept = deptMapper.selectById(deptid);
+        Dept dept = deptService.selectById(deptid);
         String pids = dept.getPids();
         String[] split = pids.split(",");
         ArrayList<Integer> parentDeptIds = new ArrayList<>();

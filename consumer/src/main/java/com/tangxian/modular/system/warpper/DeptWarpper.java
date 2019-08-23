@@ -20,6 +20,7 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 
 import java.util.List;
@@ -32,8 +33,6 @@ import java.util.Map;
  * @date 2017年4月25日 18:10:31
  */
 public class DeptWarpper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
 
     public DeptWarpper(Map<String, Object> single) {
         super(single);
@@ -58,7 +57,7 @@ public class DeptWarpper extends BaseControllerWrapper {
         if (ToolUtil.isEmpty(pid) || pid.equals(0)) {
             map.put("pName", "--");
         } else {
-            map.put("pName", constantFactory.getDeptName(pid));
+            map.put("pName", ConstantFactory.me().getDeptName(pid));
         }
     }
 }

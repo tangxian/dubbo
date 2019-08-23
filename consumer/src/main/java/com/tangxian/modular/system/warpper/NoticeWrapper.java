@@ -19,6 +19,7 @@ import cn.stylefeng.roses.core.base.warpper.BaseControllerWrapper;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 
 import java.util.List;
@@ -31,8 +32,6 @@ import java.util.Map;
  * @date 2017年4月25日 18:10:31
  */
 public class NoticeWrapper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
 
     public NoticeWrapper(Map<String, Object> single) {
         super(single);
@@ -53,6 +52,6 @@ public class NoticeWrapper extends BaseControllerWrapper {
     @Override
     protected void wrapTheMap(Map<String, Object> map) {
         Integer creater = (Integer) map.get("creater");
-        map.put("createrName", constantFactory.getUserNameById(creater));
+        map.put("createrName", ConstantFactory.me().getUserNameById(creater));
     }
 }

@@ -21,6 +21,7 @@ import com.tangxian.core.common.annotion.Permission;
 import com.tangxian.core.common.constant.Const;
 import com.tangxian.core.common.constant.cache.Cache;
 import com.tangxian.core.common.constant.dictmap.RoleDict;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.exception.BizExceptionEnum;
 import com.tangxian.core.common.node.ZTreeNode;
@@ -65,8 +66,7 @@ public class RoleController extends BaseController {
     @Reference
     private IRoleService roleService;
 
-    @Reference
-    private IConstantFactory constantFactory;
+    IConstantFactory constantFactory = ConstantFactory.me();
 
     /**
      * 跳转到角色列表页面

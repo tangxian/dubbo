@@ -19,6 +19,7 @@ import cn.stylefeng.roses.core.base.warpper.BaseControllerWrapper;
 import cn.stylefeng.roses.kernel.model.page.PageResult;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.tangxian.core.common.constant.factory.ConstantFactory;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 
 import java.util.List;
@@ -31,8 +32,6 @@ import java.util.Map;
  * @date 2017年2月19日10:59:02
  */
 public class RoleWarpper extends BaseControllerWrapper {
-    @Reference
-    private IConstantFactory constantFactory;
 
     public RoleWarpper(Map<String, Object> single) {
         super(single);
@@ -52,8 +51,8 @@ public class RoleWarpper extends BaseControllerWrapper {
 
     @Override
     protected void wrapTheMap(Map<String, Object> map) {
-        map.put("pName", constantFactory.getSingleRoleName((Integer) map.get("pid")));
-        map.put("deptName", constantFactory.getDeptName((Integer) map.get("deptid")));
+        map.put("pName", ConstantFactory.me().getSingleRoleName((Integer) map.get("pid")));
+        map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
     }
 
 }
