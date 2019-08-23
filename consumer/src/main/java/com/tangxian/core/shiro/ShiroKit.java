@@ -15,9 +15,9 @@
  */
 package com.tangxian.core.shiro;
 
-import cn.stylefeng.roses.core.util.SpringContextHolder;
-import cn.stylefeng.roses.core.util.ToolUtil;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.constant.Const;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import com.tangxian.core.common.constant.factory.IConstantFactory;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -25,8 +25,6 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -35,12 +33,10 @@ import java.util.List;
  *
  * @author dafei, Chill Zhuang
  */
-@Component
 public class ShiroKit {
 
-    //private static IConstantFactory iConstantFactory = SpringContextHolder.getBean(IConstantFactory.class);
-    @Autowired(required = false)
-    private static IConstantFactory iConstantFactory;
+    @Reference
+    private static IConstantFactory constantFactory;
 
     private static final String NAMES_DELIMETER = ",";
 
@@ -268,7 +264,7 @@ public class ShiroKit {
      */
     public static List<Integer> getDeptDataScope() {
         Integer deptId = getUser().getDeptId();
-        List<Integer> subDeptIds = iConstantFactory.getSubDeptId(deptId);
+        List<Integer> subDeptIds = constantFactory.getSubDeptId(deptId);
         subDeptIds.add(deptId);
         return subDeptIds;
     }
@@ -279,7 +275,7 @@ public class ShiroKit {
     public static boolean isAdmin() {
         List<Integer> roleList = ShiroKit.getUser().getRoleList();
         for (Integer integer : roleList) {
-            String singleRoleTip = iConstantFactory.getSingleRoleTip(integer);
+            String singleRoleTip = constantFactory.getSingleRoleTip(integer);
             if (singleRoleTip.equals(Const.ADMIN_NAME)) {
                 return true;
             }

@@ -18,7 +18,7 @@ import java.util.Date;
  * @since 2017-12-05
  */
 @TableName("sys_expense")
-public class Expense extends Model<Expense> {
+public class Expense extends Model<Expense> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

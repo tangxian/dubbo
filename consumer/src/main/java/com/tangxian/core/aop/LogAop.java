@@ -16,12 +16,11 @@
 package com.tangxian.core.aop;
 
 import cn.stylefeng.roses.core.util.HttpContext;
-import cn.stylefeng.roses.core.util.SpringContextHolder;
 import com.tangxian.core.common.annotion.BussinessLog;
 import com.tangxian.core.common.constant.dictmap.base.AbstractDictMap;
 import com.tangxian.core.log.LogManager;
 import com.tangxian.core.log.LogObjectHolder;
-import com.tangxian.core.log.factory.ILogTaskFactory;
+import com.tangxian.core.log.factory.LogTaskFactory;
 import com.tangxian.core.shiro.ShiroKit;
 import com.tangxian.core.shiro.ShiroUser;
 import com.tangxian.core.util.Contrast;
@@ -48,8 +47,6 @@ import java.util.Map;
 @Aspect
 @Component
 public class LogAop {
-    @Autowired(required=false)
-    private ILogTaskFactory iLogTaskFactory;
     //private static ILogTaskFactory iLogTaskFactory = SpringContextHolder.getBean(ILogTaskFactory.class);
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -119,6 +116,6 @@ public class LogAop {
             msg = Contrast.parseMutiKey(dictMap, key, parameters);
         }
 
-        LogManager.me().executeLog(iLogTaskFactory.bussinessLog(user.getId(), bussinessName, className, methodName, msg));
+        LogManager.me().executeLog(LogTaskFactory.bussinessLog(user.getId(), bussinessName, className, methodName, msg));
     }
 }

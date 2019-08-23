@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2017-07-11
  */
 @TableName("sys_dict")
-public class Dict extends Model<Dict> {
+public class Dict extends Model<Dict> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

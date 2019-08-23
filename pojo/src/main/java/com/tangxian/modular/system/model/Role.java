@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2017-07-11
  */
 @TableName("sys_role")
-public class Role extends Model<Role> {
+public class Role extends Model<Role> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

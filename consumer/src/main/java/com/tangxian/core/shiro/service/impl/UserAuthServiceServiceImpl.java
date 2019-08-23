@@ -15,40 +15,40 @@
  */
 package com.tangxian.core.shiro.service.impl;
 
-import cn.hutool.core.convert.Convert;
-import cn.stylefeng.roses.core.util.SpringContextHolder;
-import com.alibaba.dubbo.config.annotation.Service;
-import com.tangxian.core.common.constant.factory.ConstantFactory;
+import com.alibaba.dubbo.config.annotation.Reference;
+import com.tangxian.core.common.constant.factory.IConstantFactory;
 import com.tangxian.core.common.constant.state.ManagerStatus;
 import com.tangxian.core.shiro.ShiroUser;
 import com.tangxian.core.shiro.service.UserAuthService;
-import com.tangxian.modular.system.dao.MenuMapper;
-import com.tangxian.modular.system.dao.UserMapper;
 import com.tangxian.modular.system.model.User;
+import cn.hutool.core.convert.Convert;
+import cn.stylefeng.roses.core.util.SpringContextHolder;
+import com.tangxian.modular.system.service.IMenuService;
+import com.tangxian.modular.system.service.IUserService;
 import org.apache.shiro.authc.CredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@Service(interfaceClass = UserAuthService.class)
-@org.springframework.stereotype.Service
+@Service
 @DependsOn("springContextHolder")
+@Transactional(readOnly = true)
 public class UserAuthServiceServiceImpl implements UserAuthService {
 
-    @Resource
-    private UserMapper userMapper;
-
-    @Resource
-    private MenuMapper menuMapper;
+    @Reference
+    private IUserService userService;
+    @Reference
+    private IMenuService menuService;
+    @Reference
+    private IConstantFactory constantFactory;
 
     public static UserAuthService me() {
         return SpringContextHolder.getBean(UserAuthService.class);
@@ -57,7 +57,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
     @Override
     public User user(String account) {
 
-        User user = userMapper.getByAccount(account);
+        User user = userService.getByAccount(account);
 
         // 账号不存在
         if (null == user) {
@@ -77,7 +77,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         shiroUser.setId(user.getId());
         shiroUser.setAccount(user.getAccount());
         shiroUser.setDeptId(user.getDeptid());
-        shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));
+        shiroUser.setDeptName(constantFactory.getDeptName(user.getDeptid()));
         shiroUser.setName(user.getName());
         shiroUser.setEmail(user.getEmail());
         Integer[] roleArray = Convert.toIntArray(user.getRoleid());
@@ -85,7 +85,7 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
         List<String> roleNameList = new ArrayList<String>();
         for (int roleId : roleArray) {
             roleList.add(roleId);
-            roleNameList.add(ConstantFactory.me().getSingleRoleName(roleId));
+            roleNameList.add(constantFactory.getSingleRoleName(roleId));
         }
         shiroUser.setRoleList(roleList);
         shiroUser.setRoleNames(roleNameList);
@@ -95,12 +95,12 @@ public class UserAuthServiceServiceImpl implements UserAuthService {
 
     @Override
     public List<String> findPermissionsByRoleId(Integer roleId) {
-        return menuMapper.getResUrlsByRoleId(roleId);
+        return menuService.getResUrlsByRoleId(roleId);
     }
 
     @Override
     public String findRoleNameByRoleId(Integer roleId) {
-        return ConstantFactory.me().getSingleRoleTip(roleId);
+        return constantFactory.getSingleRoleTip(roleId);
     }
 
     @Override

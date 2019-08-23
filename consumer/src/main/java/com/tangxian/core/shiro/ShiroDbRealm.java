@@ -15,11 +15,10 @@
  */
 package com.tangxian.core.shiro;
 
-import cn.stylefeng.roses.core.util.SpringContextHolder;
-import cn.stylefeng.roses.core.util.ToolUtil;
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.shiro.service.UserAuthService;
+import com.tangxian.core.shiro.service.impl.UserAuthServiceServiceImpl;
 import com.tangxian.modular.system.model.User;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,42 +29,32 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Aspect
-@Component
-@DependsOn("springContextHolder")
 public class ShiroDbRealm extends AuthorizingRealm {
-    @Reference(interfaceName = "UserAuthServiceServiceImpl")
-    private  UserAuthService userAuthService;
-    //private static UserAuthService userAuthService = SpringContextHolder.getBean(UserAuthService.class);
+
     /**
      * 登录认证
      */
     @Override
-    public AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
-        //UserAuthService shiroFactory = userAuthService;
+        UserAuthService shiroFactory = UserAuthServiceServiceImpl.me();
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-        User user = userAuthService.user(token.getUsername());
-        ShiroUser shiroUser = userAuthService.shiroUser(user);
-        return userAuthService.info(shiroUser, user, super.getName());
+        User user = shiroFactory.user(token.getUsername());
+        ShiroUser shiroUser = shiroFactory.shiroUser(user);
+        return shiroFactory.info(shiroUser, user, super.getName());
     }
 
     /**
      * 权限认证
      */
     @Override
-    public AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        //UserAuthService shiroFactory = userAuthService;
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        UserAuthService shiroFactory = UserAuthServiceServiceImpl.me();
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
         List<Integer> roleList = shiroUser.getRoleList();
 
@@ -73,7 +62,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         Set<String> roleNameSet = new HashSet<>();
 
         for (Integer roleId : roleList) {
-            List<String> permissions = userAuthService.findPermissionsByRoleId(roleId);
+            List<String> permissions = shiroFactory.findPermissionsByRoleId(roleId);
             if (permissions != null) {
                 for (String permission : permissions) {
                     if (ToolUtil.isNotEmpty(permission)) {
@@ -81,7 +70,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
                     }
                 }
             }
-            String roleName = userAuthService.findRoleNameByRoleId(roleId);
+            String roleName = shiroFactory.findRoleNameByRoleId(roleId);
             roleNameSet.add(roleName);
         }
 

@@ -17,7 +17,7 @@ import java.util.Date;
  * @since 2017-07-11
  */
 @TableName("sys_operation_log")
-public class OperationLog extends Model<OperationLog> {
+public class OperationLog extends Model<OperationLog> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -15,7 +15,6 @@
  */
 package com.tangxian.core.shiro.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.tangxian.core.shiro.ShiroUser;
 import com.tangxian.modular.system.model.User;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
@@ -28,7 +27,6 @@ import java.util.List;
  * @author fengshuonan
  * @date 2016年12月5日 上午10:23:34
  */
-@Service
 public interface UserAuthService {
 
     /**

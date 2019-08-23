@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @since 2017-07-11
  */
 @TableName("sys_relation")
-public class Relation extends Model<Relation> {
+public class Relation extends Model<Relation> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

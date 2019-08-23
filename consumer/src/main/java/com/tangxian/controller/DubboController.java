@@ -1,6 +1,6 @@
 package com.tangxian.controller;
 
-import com.tangxian.service.IDevKeyService;
+import com.tangxian.modular.system.service.IDevKeyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

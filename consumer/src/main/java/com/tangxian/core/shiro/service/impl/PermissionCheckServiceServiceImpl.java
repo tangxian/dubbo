@@ -15,14 +15,13 @@
  */
 package com.tangxian.core.shiro.service.impl;
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.stylefeng.roses.core.util.HttpContext;
-import com.alibaba.dubbo.config.annotation.Service;
 import com.tangxian.core.listener.ConfigListener;
 import com.tangxian.core.shiro.ShiroKit;
 import com.tangxian.core.shiro.ShiroUser;
 import com.tangxian.core.shiro.service.PermissionCheckService;
-import org.springframework.stereotype.Component;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.stylefeng.roses.core.util.HttpContext;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +30,8 @@ import java.util.ArrayList;
 /**
  * 权限自定义检查
  */
-@Component
-@Service(interfaceClass = PermissionCheckService.class)
-@org.springframework.stereotype.Service
+@Service
+@Transactional(readOnly = true)
 public class PermissionCheckServiceServiceImpl implements PermissionCheckService {
 
     @Override

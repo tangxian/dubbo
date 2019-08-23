@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 2017-07-11
  */
 @TableName("sys_menu")
-public class Menu extends Model<Menu> {
+public class Menu extends Model<Menu> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

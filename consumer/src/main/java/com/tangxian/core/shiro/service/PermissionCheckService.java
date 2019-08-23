@@ -15,12 +15,9 @@
  */
 package com.tangxian.core.shiro.service;
 
-import com.alibaba.dubbo.config.annotation.Service;
-
 /**
  * 检查用接口
  */
-@Service
 public interface PermissionCheckService {
 
     /**

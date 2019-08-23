@@ -17,7 +17,7 @@ import java.util.Date;
  * @since 2017-07-11
  */
 @TableName("sys_login_log")
-public class LoginLog extends Model<LoginLog> {
+public class LoginLog extends Model<LoginLog> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

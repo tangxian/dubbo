@@ -19,12 +19,15 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.exception.InvalidKaptchaException;
 import com.tangxian.core.common.node.MenuNode;
 import com.tangxian.core.log.LogManager;
-import com.tangxian.core.log.factory.ILogTaskFactory;
+import com.tangxian.core.log.factory.LogTaskFactory;
 import com.tangxian.core.shiro.ShiroKit;
 import com.tangxian.core.shiro.ShiroUser;
+import com.tangxian.core.shiro.service.UserAuthService;
 import com.tangxian.core.util.ApiMenuFilter;
 import com.tangxian.core.util.KaptchaUtil;
+import com.tangxian.modular.system.model.DevKey;
 import com.tangxian.modular.system.model.User;
+import com.tangxian.modular.system.service.IDevKeyService;
 import com.tangxian.modular.system.service.IMenuService;
 import com.tangxian.modular.system.service.IUserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -56,8 +59,11 @@ public class LoginController extends BaseController {
     @Reference
     private IUserService userService;
 
+//    @Reference
+//    private ILogTaskFactory logTaskFactory;
+
     @Reference
-    private ILogTaskFactory logTaskFactory;
+    private IDevKeyService devKeyService;
 
     /**
      * 跳转到主页
@@ -96,6 +102,13 @@ public class LoginController extends BaseController {
         if (ShiroKit.isAuthenticated() || ShiroKit.getUser() != null) {
             return REDIRECT + "/";
         } else {
+            String str = devKeyService.sayHello();
+            System.out.println(str);
+            //DevKey devKey = devKeyService.getDevKeyById(1);
+            //System.out.println(devKey.getAppname());
+            //double a =1/0;
+            User user = userService.getByAccount("admin");
+            System.out.println(user.getName());
             return "/login.html";
         }
     }
@@ -135,7 +148,7 @@ public class LoginController extends BaseController {
         super.getSession().setAttribute("shiroUser", shiroUser);
         super.getSession().setAttribute("username", shiroUser.getAccount());
 
-        LogManager.me().executeLog(logTaskFactory.loginLog(shiroUser.getId(), getIp()));
+        LogManager.me().executeLog(LogTaskFactory.loginLog(shiroUser.getId(), getIp()));
 
         ShiroKit.getSession().setAttribute("sessionFlag", true);
 
@@ -147,7 +160,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logOut() {
-        LogManager.me().executeLog(logTaskFactory.exitLog(ShiroKit.getUser().getId(), getIp()));
+        LogManager.me().executeLog(LogTaskFactory.exitLog(ShiroKit.getUser().getId(), getIp()));
         ShiroKit.getSubject().logout();
         deleteAllCookie();
         return REDIRECT + "/login";

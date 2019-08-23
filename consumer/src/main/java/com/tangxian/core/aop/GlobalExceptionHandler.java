@@ -16,13 +16,12 @@
 package com.tangxian.core.aop;
 
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
-import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.tangxian.core.common.exception.BizExceptionEnum;
 import com.tangxian.core.common.exception.InvalidKaptchaException;
 import com.tangxian.core.log.LogManager;
-import com.tangxian.core.log.factory.ILogTaskFactory;
+import com.tangxian.core.log.factory.LogTaskFactory;
 import com.tangxian.core.shiro.ShiroKit;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.CredentialsException;
@@ -59,8 +58,9 @@ import static cn.stylefeng.roses.core.util.HttpContext.getRequest;
 @DependsOn("springContextHolder")
 public class GlobalExceptionHandler {
 
-    @Autowired(required=false)
-    private ILogTaskFactory iLogTaskFactory;
+    //@Autowired(required=false)
+//    @Reference
+//    private ILogTaskFactory logTaskFactory;
     //private ILogTaskFactory iLogTaskFactory;
     //private static ILogTaskFactory iLogTaskFactory = SpringContextHolder.getBean(ILogTaskFactory.class);
 
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorResponseData bussiness(ServiceException e) {
-        LogManager.me().executeLog(iLogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
+        LogManager.me().executeLog(LogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
         getRequest().setAttribute("tip", e.getMessage());
         log.error("业务异常:", e);
         return new ErrorResponseData(e.getCode(), e.getMessage());
@@ -96,7 +96,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public String accountLocked(DisabledAccountException e, Model model) {
         String username = getRequest().getParameter("username");
-        LogManager.me().executeLog(iLogTaskFactory.loginLog(username, "账号被冻结", getIp()));
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, "账号被冻结", getIp()));
         model.addAttribute("tips", "账号被冻结");
         return "/login.html";
     }
@@ -108,7 +108,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public String credentials(CredentialsException e, Model model) {
         String username = getRequest().getParameter("username");
-        LogManager.me().executeLog(iLogTaskFactory.loginLog(username, "账号密码错误", getIp()));
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, "账号密码错误", getIp()));
         model.addAttribute("tips", "账号密码错误");
         return "/login.html";
     }
@@ -120,7 +120,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String credentials(InvalidKaptchaException e, Model model) {
         String username = getRequest().getParameter("username");
-        LogManager.me().executeLog(iLogTaskFactory.loginLog(username, "验证码错误", getIp()));
+        LogManager.me().executeLog(LogTaskFactory.loginLog(username, "验证码错误", getIp()));
         model.addAttribute("tips", "验证码错误");
         return "/login.html";
     }
@@ -144,7 +144,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ErrorResponseData notFount(RuntimeException e) {
-        LogManager.me().executeLog(iLogTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
+        //LogManager.me().executeLog(logTaskFactory.exceptionLog(ShiroKit.getUser().getId(), e));
         getRequest().setAttribute("tip", "服务器未知运行时异常");
         log.error("运行时异常:", e);
         return new ErrorResponseData(BizExceptionEnum.SERVER_ERROR.getCode(), BizExceptionEnum.SERVER_ERROR.getMessage());
