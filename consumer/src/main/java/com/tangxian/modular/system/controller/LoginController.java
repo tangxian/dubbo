@@ -102,13 +102,6 @@ public class LoginController extends BaseController {
         if (ShiroKit.isAuthenticated() || ShiroKit.getUser() != null) {
             return REDIRECT + "/";
         } else {
-            String str = devKeyService.sayHello();
-            System.out.println(str);
-            //DevKey devKey = devKeyService.getDevKeyById(1);
-            //System.out.println(devKey.getAppname());
-            //double a =1/0;
-            User user = userService.getByAccount("admin");
-            System.out.println(user.getName());
             return "/login.html";
         }
     }

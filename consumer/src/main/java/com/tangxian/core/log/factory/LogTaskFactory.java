@@ -27,6 +27,7 @@ import com.tangxian.modular.system.service.ILoginLogService;
 import com.tangxian.modular.system.service.IOperationLogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.TimerTask;
 
@@ -36,6 +37,7 @@ import java.util.TimerTask;
  * @author fengshuonan
  * @date 2016年12月6日 下午9:18:27
  */
+@Component
 public class LogTaskFactory {
 
     private static Logger logger = LoggerFactory.getLogger(LogManager.class);
